@@ -1,31 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mabaffo <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 12:02:49 by mabaffo           #+#    #+#             */
-/*   Updated: 2022/11/01 21:50:52 by mabaffo          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef GET_NEXT_LINE_H
 #define GET_NEXT_LINE_H
 #include <unistd.h>
 #include <stdlib.h>
-/*
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 5
+#endif
+
 typedef struct s_buff
 {
-	static	unsigned long	i;
-	static	char	*buff;
-	static	long long	finish;
+	size_t	i;
+	char	*buf;
+	size_t	dim;
+	int	finish;
 }	t_buff;
-*/
+
 char	*get_next_line(int fd);
-void    *ft_realloc(void *ptr, size_t plus);
+void    *ft_realloc(char **buf, size_t *dim);
 char    *ft_substr(char const *s, unsigned int start, size_t len);
-void    *ft_memmove(void *dest, const void *src, size_t n);
+void	ft_scopy(char *dst, char *src);
 size_t  ft_strlen(const char *s);
+int	ft_line(char *buf, size_t *i, long long int *j);
 
 #endif

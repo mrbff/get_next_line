@@ -5,69 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabaffo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 11:58:44 by mabaffo           #+#    #+#             */
-/*   Updated: 2022/11/01 22:59:09 by mabaffo          ###   ########.fr       */
+/*   Created: 2022/11/07 18:57:22 by mabaffo           #+#    #+#             */
+/*   Updated: 2022/11/07 19:44:57 by mabaffo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#ifndef BUF_SIZE
-#define BUF_SIZE 5
-#endif
-#include <stdio.h>
-/*
-typedef struct s_buff
+
+char *get_next_line(int fd)
 {
-        static  unsigned long   i;
-        static  char    *buff;
-        static  long long       finish;
-}       t_buff;
-*/
-char	*get_next_line(int fd)
-{	
-	long long int tmp;
-	size_t j;
-	static  unsigned long   i;
-        static  char    *buff;
-        static  long long       finish;
+	static t_buff roba;
+	long long int j;
+	int tmp;
 
-
-	if (fd < 0 || BUF_SIZE < 1)
-		return (NULL);
-	while (!(finish))
+	while (!(roba.finish))
 	{
-		if (buff)
-			printf("%s\n", buff);
-		printf("%d\n", i);
-		j = 0;
-		//write(1, "cazo\n", 5);
-		if (buff)
+		ft_realloc(&(roba.buf), &(roba.dim));
+		if (!(roba.buf))
+			return (NULL);
+	/*	j = 0;
+		while (((roba.buf)[(roba.i) + j]) && (roba.buf)[(roba.i) + j] != '\n')
+			j++;
+		j += ((roba.buf)[(roba.i) + j] == '\n');
+		if ((roba.buf)[(roba.i) + j - 1] == '\n' && j != 0)
 		{
-			while ((buff)[(i) + j] != '\n' && (buff)[(i) + j])
-				j++;//(A.i)++;
-			if(buff[i + j] == '\n')
-			{
-				tmp = i;
-				i += j;
-				return (ft_substr(buff, tmp, j + 1));
-			}
-			i += j;
-		}
-		if (!(finish))
+			roba.i += j;
+			return (ft_substr(roba.buf, roba.i - j, j));
+		}*/
+		if (ft_line(roba.buf, &(roba.i), &j) == 1)
+			return (ft_substr(roba.buf, roba.i - j, j));
+		tmp = read(fd, &((roba.buf)[(roba.dim) - BUFFER_SIZE]), BUFFER_SIZE);
+		if (tmp == -1)
+			return (NULL);
+		if (!tmp && !roba.finish)
 		{
-			buff = ft_realloc(buff, BUF_SIZE);
-			if (!(buff))
-				return (NULL);
+			roba.finish = 1;
+			return (ft_substr(roba.buf, roba.i - j, j));
 		}
-		tmp = read(fd, &((buff)[i]), BUF_SIZE);
-		printf("tmp = %ld", tmp);
-		if ((!tmp || tmp == -1) && !(finish))
-		{
-			finish = (tmp == 0);
-			return (ft_substr(buff, (i), j + 1));
-		}
-		else if ((!tmp || tmp == -1) && finish)
-				return (NULL);
+		(roba.dim) += BUFFER_SIZE;
+		roba.buf[(roba.dim) + 1] = '\0';
 	}
 	return (NULL);
 }
