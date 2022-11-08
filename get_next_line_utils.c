@@ -6,38 +6,40 @@
 /*   By: mabaffo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:20:05 by mabaffo           #+#    #+#             */
-/*   Updated: 2022/11/07 19:38:38 by mabaffo          ###   ########.fr       */
+/*   Updated: 2022/11/07 22:14:54 by mabaffo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char    *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-        char    *substr;
-        size_t  i;
+	char	*substr;
+	size_t	i;
 
-        i = 0;
-        substr = malloc(len + 1);
-        if (!substr)
-                return (NULL);
-        if (start >= ft_strlen(s))
-        {
-                substr[0] = '\0';
-                return (substr);
-        }
-        while (s[start + i] && i < len)
-        {
-                substr[i] = s[start + i];
-                i++;
-        }
-        substr[i] = '\0';
+	i = 0;
+	substr = malloc(len + 1);
+	if (!substr)
+		return (NULL);
+	if (start >= ft_strlen(s))
+	{
+		substr[0] = '\0';
+		return (substr);
+	}
+	while (s[start + i] && i < len)
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	substr[i] = '\0';
 	return (substr);
 }
 
-void ft_scopy(char *dst, char *src)
+void	ft_scopy(char *dst, char *src)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (src[i])
 	{
 		dst[i] = src[i];
@@ -46,15 +48,15 @@ void ft_scopy(char *dst, char *src)
 	dst[i] = '\0';
 }
 
-void    *ft_realloc(char **buf, size_t *dim)
+void	*ft_realloc(char **buf, size_t *dim)
 {
-	char *ptr;
+	char	*ptr;
 
 	if (!(*buf))
 	{
 		*buf = malloc(BUFFER_SIZE + 1);
-			if (!(*buf))
-				return (NULL);
+		if (!(*buf))
+			return (NULL);
 		(*buf)[BUFFER_SIZE] = '\0';
 		*dim = BUFFER_SIZE;
 	}
@@ -70,22 +72,22 @@ void    *ft_realloc(char **buf, size_t *dim)
 	return (NULL);
 }
 
-size_t  ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	size_t i;
+	size_t	i;
 
-        if (!s || !(*s))
-                return (0);
-        i = 0;
-        while (s[i])
-                i++;
-        return (i);
+	if (!s || !(*s))
+		return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
-int ft_line(char *buf, size_t *i, long long int *j)
+int	ft_line(char *buf, size_t *i, long long int *j)
 {
 	*j = 0;
-        while (buf[(*i) + (*j)] && buf[(*i) + (*j)] != '\n')
+	while (buf[(*i) + (*j)] && buf[(*i) + (*j)] != '\n')
 		(*j)++;
 	(*j) += (buf[(*i) + (*j)] == '\n');
 	if (buf[(*i) + (*j) - 1] == '\n' && (*j))
