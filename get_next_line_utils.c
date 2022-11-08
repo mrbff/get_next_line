@@ -6,7 +6,7 @@
 /*   By: mabaffo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:20:05 by mabaffo           #+#    #+#             */
-/*   Updated: 2022/11/07 22:14:54 by mabaffo          ###   ########.fr       */
+/*   Updated: 2022/11/08 18:55:36 by mabaffo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	*ft_realloc(char **buf, size_t *dim)
 		(*buf)[BUFFER_SIZE] = '\0';
 		*dim = BUFFER_SIZE;
 	}
-	else //if (roba.buf[(roba.dim) - BUFFER_SIZE] == '\0')
+	else
 	{
 		ptr = malloc(*dim + BUFFER_SIZE + 1);
 		if (!ptr)

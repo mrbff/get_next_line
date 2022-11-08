@@ -7,15 +7,17 @@
 int main()
 {
 	size_t fd;
-	/*
-	fd = open("file.txt", O_RDWR);
-	//write(fd, "DIO BELLO", 9);
-	for (int i = 0; i < 6; i++)
-		printf("%s\n", get_next_line(fd));
-	close(fd);
-	*/
+	char *s;
+
         fd = open("get_next_line.h", O_RDWR);
-        for(int i = 0; i < 50; i++)
-                printf("'%s'\n\n", get_next_line(fd));
+        for(int i = 0; i < 40; i++)
+	{	
+		s = get_next_line(fd);
+		if (!s)
+			return (0);
+                printf("'%s'\n\n", s);
+		free(s);
+	}
+	free(s);
         close(fd);
 }

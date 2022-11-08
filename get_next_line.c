@@ -6,7 +6,7 @@
 /*   By: mabaffo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:57:22 by mabaffo           #+#    #+#             */
-/*   Updated: 2022/11/07 21:18:34 by mabaffo          ###   ########.fr       */
+/*   Updated: 2022/11/08 18:33:02 by mabaffo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*get_next_line(int fd)
 	long long int	j;
 	int				tmp;
 
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+		return (NULL);
 	while (!(roba.finish))
 	{
 		ft_realloc(&(roba.buf), &(roba.dim));
@@ -28,7 +30,7 @@ char	*get_next_line(int fd)
 		tmp = read(fd, &((roba.buf)[(roba.dim) - BUFFER_SIZE]), BUFFER_SIZE);
 		if (tmp == -1)
 			return (NULL);
-		if (!tmp && !roba.finish)
+		if (!tmp)// && !roba.finish)
 		{
 			roba.finish = 1;
 			return (ft_substr(roba.buf, roba.i - j, j));
