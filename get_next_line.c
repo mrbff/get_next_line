@@ -6,7 +6,7 @@
 /*   By: mabaffo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:57:22 by mabaffo           #+#    #+#             */
-/*   Updated: 2022/11/08 18:33:02 by mabaffo          ###   ########.fr       */
+/*   Updated: 2022/11/09 12:47:41 by mabaffo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*get_next_line(int fd)
 		if (!tmp)
 		{
 			roba.finish = 1;
+		//	if (*(roba.buf))
+			free(roba.buf);
 			return (NULL);
 		}
 		(roba.dim) += BUFFER_SIZE;
