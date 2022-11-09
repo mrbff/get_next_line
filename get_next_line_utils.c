@@ -48,7 +48,7 @@ void	ft_scopy(char *dst, char *src)
 	dst[i] = '\0';
 }
 
-void	*ft_realloc(char **buf, size_t *dim)
+void	ft_realloc(char **buf, size_t *dim)
 {
 	char	*ptr;
 	size_t	i;
@@ -58,7 +58,7 @@ void	*ft_realloc(char **buf, size_t *dim)
 	{
 		*buf = malloc(BUFFER_SIZE + 1);
 		if (!(*buf))
-			return (NULL);
+			return ;
 		while (i <= BUFFER_SIZE)
 			(*buf)[i++] = '\0';
 		*dim = BUFFER_SIZE;
@@ -67,14 +67,14 @@ void	*ft_realloc(char **buf, size_t *dim)
 	{
 		ptr = malloc(*dim + BUFFER_SIZE + 1);
 		if (!ptr)
-			return (NULL);
+			return ;
 		while (i <= *dim + BUFFER_SIZE)
-                        (ptr)[i++] = '\0';
+			(ptr)[i++] = '\0';
 		ft_scopy(ptr, *buf);
 		free(*buf);
 		*buf = ptr;
 	}
-	return (NULL);
+	return ;
 }
 
 size_t	ft_strlen(const char *s)
@@ -96,7 +96,9 @@ int	ft_line(char *buf, size_t *i, long long int *j)
 		(*j)++;
 	if (buf[(*i) + (*j)] == '\n')
 		(*j)++;
-	if (buf[(*i) + (*j) - 1] == '\n' && (*j))
+	if (!(*j))
+		return (0);
+	if (buf[(*i) + (*j) - 1] == '\n')
 	{
 		(*i) += (*j);
 		return (1);

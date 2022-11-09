@@ -28,17 +28,14 @@ char	*get_next_line(int fd)
 		if (ft_line(roba.buf, &(roba.i), &j) == 1)
 			return (ft_substr(roba.buf, roba.i - j, j));
 		tmp = read(fd, &((roba.buf)[(roba.dim) - BUFFER_SIZE]), BUFFER_SIZE);
-		if (tmp == -1)
-			return (NULL);
 		if (!tmp)
 		{
-			roba.finish = 1;
-		//	if (*(roba.buf))
 			free(roba.buf);
+			roba.finish = 1;
 			return (NULL);
 		}
 		(roba.dim) += BUFFER_SIZE;
-		roba.buf[(roba.dim) + 1] = '\0';
+		roba.buf[ft_strlen(roba.buf)] = '\0';
 	}
 	return (NULL);
 }
