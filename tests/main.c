@@ -9,8 +9,8 @@ int main()
 	size_t fd;
 	char *s;
 
-        fd = open("get_next_line.h", O_RDWR);
-        for(int i = 0; i < 40; i++)
+        fd = open("get_next_line.h", O_RDONLY);
+        for(int i = 0; i < 50; i++)
 	{	
 		s = get_next_line(fd);
 		if (!s)

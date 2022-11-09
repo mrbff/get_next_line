@@ -51,13 +51,16 @@ void	ft_scopy(char *dst, char *src)
 void	*ft_realloc(char **buf, size_t *dim)
 {
 	char	*ptr;
+	size_t	i;
 
+	i = 0;
 	if (!(*buf))
 	{
 		*buf = malloc(BUFFER_SIZE + 1);
 		if (!(*buf))
 			return (NULL);
-		(*buf)[BUFFER_SIZE] = '\0';
+		while (i <= BUFFER_SIZE)
+			(*buf)[i++] = '\0';
 		*dim = BUFFER_SIZE;
 	}
 	else
@@ -65,6 +68,8 @@ void	*ft_realloc(char **buf, size_t *dim)
 		ptr = malloc(*dim + BUFFER_SIZE + 1);
 		if (!ptr)
 			return (NULL);
+		while (i <= *dim + BUFFER_SIZE)
+                        (ptr)[i++] = '\0';
 		ft_scopy(ptr, *buf);
 		free(*buf);
 		*buf = ptr;

@@ -30,10 +30,10 @@ char	*get_next_line(int fd)
 		tmp = read(fd, &((roba.buf)[(roba.dim) - BUFFER_SIZE]), BUFFER_SIZE);
 		if (tmp == -1)
 			return (NULL);
-		if (!tmp)// && !roba.finish)
+		if (!tmp)
 		{
 			roba.finish = 1;
-			return (ft_substr(roba.buf, roba.i - j, j));
+			return (NULL);
 		}
 		(roba.dim) += BUFFER_SIZE;
 		roba.buf[(roba.dim) + 1] = '\0';
